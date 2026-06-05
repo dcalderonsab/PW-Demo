@@ -2,8 +2,8 @@ import { test as baseTest } from '@playwright/test';
 
 // Import future Page Object classes.
 // Although these files do not exist yet, we define them here to establish the structure.
-import { LoginPage } from '../pages/login.page';
-import { ProductManagerPage } from '../pages/productManager.page';
+import { LoginPage } from '../pages/loginPage';
+import { ProductManagerPage } from '../pages/productManagerPage';
 
 /**
  * @fileoverview This file defines the custom Playwright fixtures for the project.
