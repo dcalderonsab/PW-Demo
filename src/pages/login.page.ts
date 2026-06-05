@@ -7,28 +7,36 @@ import { BasePage } from './BasePage';
  */
 export class LoginPage extends BasePage {
   // Locators are private and readonly, accessed only via public methods.
-  private readonly emailInput: Locator;
+  private readonly userNameInput: Locator;
   private readonly passwordInput: Locator;
-  private readonly loginButton: Locator;
-  private readonly errorMessage: Locator;
+  private readonly signIngButton: Locator;
+  private readonly rememberMeCheckbox: Locator;
+  private readonly userNameError: Locator;
+  private readonly passwordError: Locator;
+  private readonly registerLink: Locator;
+
+  /**
+   * @param page The Playwright Page object.
+   */
 
   constructor(page: Page) {
     super(page);
 
     // Initialize locators using resilient strategies as per our rules.
-    this.emailInput = page.getByPlaceholder('Enter your email');
-    this.passwordInput = page.getByPlaceholder('Enter your password');
-    this.loginButton = page.getByRole('button', { name: 'Login' });
-
-    // This is a placeholder selector. We'd use a more robust one like a data-testid if available.
-    this.errorMessage = page.locator('.error-message');
+    this.userNameInput = page.locator('[id=username]');
+    this.passwordInput = page.locator('[id=password]');
+    this.rememberMeCheckbox = page.locator('[id=remember-me]');
+    this.signIngButton = page.getByRole('button', { name: 'Sign In' });
+    this.userNameError = page.locator('[id=username-error]');
+    this.passwordError = page.locator('[id=password-error]');
+    this.registerLink = page.getByRole('link', { name: 'Register here' })
   }
 
   /**
    * Navigates to the login page of the application.
    */
   async goto() {
-    // Assumes baseURL is set in playwright.config.ts, so this navigates to baseURL + /login
+    // Assumes baseURL is set in playwright.config.ts, so this navigates to baseURL + '/login'
     await super.goto('/login');
   }
 
@@ -38,10 +46,17 @@ export class LoginPage extends BasePage {
    * @param password The user's password.
    */
   async login(email: string, password?: string) {
-    await this.writeText(this.emailInput, email);
+    await this.writeText(this.userNameInput, email);
     if (password) {
       await this.writeText(this.passwordInput, password);
     }
-    await this.clickElement(this.loginButton);
+    await this.clickElement(this.signIngButton);
+  }
+
+  /**
+   * Clicks the 'Register here' link to navigate to the registration page.
+   */
+  async clickRegisterLink() {
+    await this.clickElement(this.registerLink);
   }
 }
