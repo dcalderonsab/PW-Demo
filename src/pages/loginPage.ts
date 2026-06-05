@@ -37,7 +37,7 @@ export class LoginPage extends BasePage {
    */
   async goto() {
     // Assumes baseURL is set in playwright.config.ts, so this navigates to baseURL + '/login'
-    await super.goto('/login');
+    await super.goto('/login.html');
   }
 
   /**
