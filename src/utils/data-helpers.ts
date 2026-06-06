@@ -47,7 +47,18 @@ export function generateRandomPassword(length: number = 12): string {
  * @param prefix The prefix for the name. Defaults to 'TestName'.
  * @returns A random name string (e.g., 'TestName_a1b2c3').
  */
-export function generateRandomName(prefix: string = 'TestName'): string {
+export function generateRandomName(prefix: string): string {
   const randomSuffix = Math.random().toString(36).substring(2, 8);
   return `${prefix}_${randomSuffix}`;
+}
+
+/**
+ * Generates a random email address, typically for registration tests.
+ * Appends a timestamp to a prefix to ensure uniqueness.
+ * @param prefix The prefix for the email. Defaults to the value in email-config.json.
+ * @param domain The domain for the email. Defaults to the value in email-config.json.
+ * @returns A unique email string (e.g., 'testuser_1678886400000@example.com').
+ */
+export function generateRandomEmail(prefix: string, domain: string ): string {
+  return `${prefix}_${Date.now()}@${domain}`;
 }

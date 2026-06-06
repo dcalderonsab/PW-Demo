@@ -1,14 +1,17 @@
 import {type Locator, type Page} from '@playwright/test';
 import { BasePage } from './BasePage';
+import { IUserRegistrationData } from '../types/userData.type';
 
 export class RegisterPage extends BasePage{
 
     
-  private readonly userNameInput: Locator;
-  private readonly emailInput: Locator;
-  private readonly passwordInput: Locator;
-  private readonly confirmPasswordInput: Locator;
-  private readonly registerButton: Locator;
+   readonly userNameInput: Locator;
+   readonly emailInput: Locator;
+   readonly passwordInput: Locator;
+   readonly confirmPasswordInput: Locator;
+   readonly registerButton: Locator;
+   readonly successMessage: Locator;
+
 
   /**
    * @param page The Playwright Page object.
@@ -21,6 +24,7 @@ export class RegisterPage extends BasePage{
     this.passwordInput = page.locator('[id=reg-password]');
     this.confirmPasswordInput = page.locator('[id=reg-confirm-password]');
     this.registerButton = page.getByRole('button', { name: 'Register' });
+    this.successMessage = page.getByText('Registration successful!');
   }
 
   /**
@@ -33,8 +37,8 @@ export class RegisterPage extends BasePage{
   /**
    * Fills the registration form and submits it.
    */
-  async register(user: { firstName: string; lastName: string; email: string; password: string }) {
-    await this.writeText(this.userNameInput, user.firstName);
+  async register(user: IUserRegistrationData) {
+    await this.writeText(this.userNameInput, user.userName);
     await this.writeText(this.emailInput, user.email);
     await this.writeText(this.passwordInput, user.password);
     await this.writeText(this.confirmPasswordInput, user.password);

@@ -7,13 +7,14 @@ import { BasePage } from './BasePage';
  */
 export class LoginPage extends BasePage {
   // Locators are private and readonly, accessed only via public methods.
-  private readonly userNameInput: Locator;
-  private readonly passwordInput: Locator;
-  private readonly signIngButton: Locator;
-  private readonly rememberMeCheckbox: Locator;
-  private readonly userNameError: Locator;
-  private readonly passwordError: Locator;
-  private readonly registerLink: Locator;
+   readonly userNameInput: Locator;
+   readonly passwordInput: Locator;
+   readonly signIngButton: Locator;
+   readonly rememberMeCheckbox: Locator;
+   readonly userNameError: Locator;
+   readonly passwordError: Locator;
+   readonly registerLink: Locator;
+   readonly header: Locator;
 
   /**
    * @param page The Playwright Page object.
@@ -30,6 +31,7 @@ export class LoginPage extends BasePage {
     this.userNameError = page.locator('[id=username-error]');
     this.passwordError = page.locator('[id=password-error]');
     this.registerLink = page.getByRole('link', { name: 'Register here' })
+    this.header =  page.getByRole('heading', { name: 'Product Manager' });
   }
 
   /**

@@ -4,6 +4,7 @@ import { test as baseTest } from '@playwright/test';
 // Although these files do not exist yet, we define them here to establish the structure.
 import { LoginPage } from '../pages/loginPage';
 import { ProductManagerPage } from '../pages/productManagerPage';
+import { RegisterPage } from '../pages/registerPage';
 
 /**
  * @fileoverview This file defines the custom Playwright fixtures for the project.
@@ -15,7 +16,8 @@ import { ProductManagerPage } from '../pages/productManagerPage';
 // This provides autocompletion and type-checking in the tests.
 export type tAppFixtures = {
   loginPage: LoginPage;
-  registerPage: ProductManagerPage;
+  registerPage: RegisterPage;
+  productManagerPage: ProductManagerPage
 
 };
 
@@ -28,8 +30,11 @@ export const test = baseTest.extend<tAppFixtures>({
   },
 
   registerPage: async ({ page }, use) => {
-    await use(new ProductManagerPage(page));
+    await use(new RegisterPage(page));
   },
+  productManagerPage: async ({ page }, use) => {
+    await use(new ProductManagerPage(page));
+  }
 
 });
 

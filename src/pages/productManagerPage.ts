@@ -4,18 +4,18 @@ import { BasePage } from './BasePage';
 export class ProductManagerPage extends BasePage {
 
 
-    private readonly searchInput: Locator;
-    private readonly categoryFilter: Locator;
-    private readonly productName: Locator;
-    private readonly productSKU: Locator;
-    private readonly productPrice: Locator;
-    private readonly productCategory: Locator;
-    private readonly productInStock: Locator;
-    private readonly productDescription: Locator;
-    private readonly saveButton: Locator;
-    private readonly resetButton: Locator;
-    private readonly selectAll: Locator;
-    private readonly bulkDeleteButton: Locator;
+     readonly searchInput: Locator;
+     readonly categoryFilter: Locator;
+     readonly productName: Locator;
+     readonly productSKU: Locator;
+     readonly productPrice: Locator;
+     readonly productCategory: Locator;
+     readonly productInStock: Locator;
+     readonly productDescription: Locator;
+     readonly saveButton: Locator;
+     readonly resetButton: Locator;
+     readonly selectAll: Locator;
+     readonly bulkDeleteButton: Locator;
 
 
 
