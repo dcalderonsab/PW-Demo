@@ -1,17 +1,14 @@
-import {type Locator, type Page} from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { IUserRegistrationData } from '../types/userData.type';
 
-export class RegisterPage extends BasePage{
-
-    
-   readonly userNameInput: Locator;
-   readonly emailInput: Locator;
-   readonly passwordInput: Locator;
-   readonly confirmPasswordInput: Locator;
-   readonly registerButton: Locator;
-   readonly successMessage: Locator;
-
+export class RegisterPage extends BasePage {
+  readonly userNameInput: Locator;
+  readonly emailInput: Locator;
+  readonly passwordInput: Locator;
+  readonly confirmPasswordInput: Locator;
+  readonly registerButton: Locator;
+  readonly successMessage: Locator;
 
   /**
    * @param page The Playwright Page object.
@@ -44,6 +41,4 @@ export class RegisterPage extends BasePage{
     await this.writeText(this.confirmPasswordInput, user.password);
     await this.clickElement(this.registerButton);
   }
-
-
 }

@@ -25,7 +25,6 @@ const SYMBOLS = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
 const ALL_CHARS = UPPER + LOWER + NUMBERS + SYMBOLS;
 
 export function generateRandomPassword(length: number = 12): string {
-
   let password = '';
   // Ensure at least one of each character type for robustness
   password += UPPER.charAt(Math.floor(Math.random() * UPPER.length));
@@ -38,7 +37,10 @@ export function generateRandomPassword(length: number = 12): string {
   }
 
   // Shuffle the password to randomize the position of the guaranteed characters
-  return password.split('').sort(() => 0.5 - Math.random()).join('');
+  return password
+    .split('')
+    .sort(() => 0.5 - Math.random())
+    .join('');
 }
 
 /**
@@ -59,6 +61,6 @@ export function generateRandomName(prefix: string): string {
  * @param domain The domain for the email. Defaults to the value in email-config.json.
  * @returns A unique email string (e.g., 'testuser_1678886400000@example.com').
  */
-export function generateRandomEmail(prefix: string, domain: string ): string {
+export function generateRandomEmail(prefix: string, domain: string): string {
   return `${prefix}_${Date.now()}@${domain}`;
 }

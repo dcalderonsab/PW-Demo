@@ -14,7 +14,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 // Fail-fast validation: Ensure BASE_URL is present
 if (!process.env.BASE_URL) {
-  throw new Error("Missing BASE_URL environment variable. Please check your .env file.");
+  throw new Error('Missing BASE_URL environment variable. Please check your .env file.');
 }
 
 /**

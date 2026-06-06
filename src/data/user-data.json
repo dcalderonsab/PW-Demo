@@ -1,4 +1,6 @@
 {
   "prefix": "testuser",
-  "domain": "example.com"
+  "domain": "example.com",
+  "nonexistinguser": "testuser",
+  "nonexistingpassword": "testpassword"
 }
