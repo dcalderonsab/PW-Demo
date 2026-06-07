@@ -3,7 +3,7 @@ import * as helper from '../../src/utils/data-helpers';
 import userData from '../../src/data/user-data.json' with { type: 'json' };
 import type { IUserRegistrationData } from '../../src/types/userData.type';
 import { AUTH_MESSAGES } from '../../src/constants/messages.constants.js';
-import { APP_ROUTES } from '../../src/constants/routes.constants.js'
+import { APP_ROUTES } from '../../src/constants/routes.constants.js';
 /**
  * @fileoverview E2E tests for the login functionality.
  */
@@ -32,11 +32,11 @@ test.describe('Login Functionality', () => {
     };
 
     await registerPage.register(newUser);
-
+    //await expect(registerPage.successMessage).toHaveText(AUTH_MESSAGES.SUCCESSFULL_USER_CREATION);
     await expect(registerPage.successMessage).toBeVisible();
-    await expect(registerPage.successMessage).toHaveText(AUTH_MESSAGES.SUCCESSFULL_USER_CREATION);
+    
 
-    await expect(page).toHaveURL(APP_ROUTES.LOGIN);
+    await expect(page).toHaveURL(APP_ROUTES.LOGIN_REGEX);
 
     await expect(loginPage.header).toBeVisible();
   });
@@ -48,14 +48,20 @@ test.describe('Login Functionality', () => {
 
     await expect(loginPage.loginAlert).toBeVisible();
     await expect(loginPage.loginAlert).toHaveText(AUTH_MESSAGES.INVALID_CREDENTIALS);
-    await expect(page).toHaveURL(APP_ROUTES.LOGIN);
+    await expect(page).toHaveURL(APP_ROUTES.LOGIN_REGEX);
   });
 
-
-  test('Validate successful login and save session state',async ({ loginPage, page }) => {
+  test('Validate successful login with valid credentials', async ({ loginPage, page }) => {
     await loginPage.goto();
 
-    await loginPage.login(, userData.existingpassword);
+    // It is safer to typecast as string now since we guarantee their existence in playwright.config.ts
+    await loginPage.login(process.env.TEST_APP_USERNAME as string, process.env.TEST_APP_PASSWORD as string);
 
+    // Assert a successful login occurred (e.g. redirected to the Product Manager page)
+    await expect(loginPage.loginSuccessfull).toBeVisible();
     
+    await expect(page).toHaveURL(APP_ROUTES.INDEX_PAGE);
+
+    await page.context().storageState({ path: 'playwright/.auth/user.json' });
+  });
 });

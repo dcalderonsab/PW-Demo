@@ -1,6 +1,7 @@
 import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { IUserRegistrationData } from '../types/userData.type';
+import { APP_ROUTES } from '../constants/routes.constants';
 
 export class RegisterPage extends BasePage {
   readonly userNameInput: Locator;
@@ -28,7 +29,7 @@ export class RegisterPage extends BasePage {
    * Navigates to the registration page.
    */
   async goto() {
-    await super.goto('/register');
+    await super.goto(APP_ROUTES.REGISTER_PAGE);
   }
 
   /**
