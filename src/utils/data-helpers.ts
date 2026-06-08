@@ -1,3 +1,6 @@
+import { faker } from '@faker-js/faker';
+import type { IProductData } from '../types/product.type';
+import { PRODUCT_CATEGORIES } from '../constants/categories.constants.js';
 /**
  * @fileoverview This file contains helper functions for generating random test data.
  */
@@ -63,4 +66,14 @@ export function generateRandomName(prefix: string): string {
  */
 export function generateRandomEmail(prefix: string, domain: string): string {
   return `${prefix}_${Date.now()}@${domain}`;
+}
+
+export function generateRandomProductData(): IProductData {
+  return {
+    name: faker.commerce.productName(),
+    sku: `SKU-${faker.string.alphanumeric({ length: 6, casing: 'upper' })}-${Date.now()}`,
+    price: faker.commerce.price({ min: 10, max: 500, dec: 2 }),
+    category: faker.helpers.arrayElement(Object.values(PRODUCT_CATEGORIES)),
+    description: faker.commerce.productDescription(),
+  };
 }

@@ -1,9 +1,9 @@
-import { test, expect } from '../../src/fixtures/base.fixture';
-import * as helper from '../../src/utils/data-helpers';
-import userData from '../../src/data/user-data.json' with { type: 'json' };
-import type { IUserRegistrationData } from '../../src/types/userData.type';
-import { AUTH_MESSAGES } from '../../src/constants/messages.constants.js';
-import { APP_ROUTES } from '../../src/constants/routes.constants.js';
+import { test, expect } from '../../../src/fixtures/base.fixture';
+import * as helper from '../../../src/utils/data-helpers';
+import userData from '../../../src/data/user-data.json' with { type: 'json' };
+import type { IUserRegistrationData } from '../../../src/types/userData.type';
+import { AUTH_MESSAGES } from '../../../src/constants/messages.constants.js';
+import { APP_ROUTES } from '../../../src/constants/routes.constants.js';
 /**
  * @fileoverview E2E tests for the login functionality.
  */
@@ -32,9 +32,8 @@ test.describe('Login Functionality', () => {
     };
 
     await registerPage.register(newUser);
-    //await expect(registerPage.successMessage).toHaveText(AUTH_MESSAGES.SUCCESSFULL_USER_CREATION);
+
     await expect(registerPage.successMessage).toBeVisible();
-    
 
     await expect(page).toHaveURL(APP_ROUTES.LOGIN_REGEX);
 
@@ -55,13 +54,14 @@ test.describe('Login Functionality', () => {
     await loginPage.goto();
 
     // It is safer to typecast as string now since we guarantee their existence in playwright.config.ts
-    await loginPage.login(process.env.TEST_APP_USERNAME as string, process.env.TEST_APP_PASSWORD as string);
+    await loginPage.login(
+      process.env.TEST_APP_USERNAME as string,
+      process.env.TEST_APP_PASSWORD as string,
+    );
 
     // Assert a successful login occurred (e.g. redirected to the Product Manager page)
     await expect(loginPage.loginSuccessfull).toBeVisible();
-    
-    await expect(page).toHaveURL(APP_ROUTES.INDEX_PAGE);
 
-    await page.context().storageState({ path: 'playwright/.auth/user.json' });
+    await expect(page).toHaveURL(APP_ROUTES.INDEX_PAGE);
   });
 });
