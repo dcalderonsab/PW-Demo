@@ -6,7 +6,7 @@
   "scripts": {
     "e2e": "playwright test --headed",
     "e2e:ui": "playwright test --ui",
-    "inspect": "playwright codegen https://softwaremind-assessments.s3.us-east-1.amazonaws.com/login.html",
+    "inspect": "playwright codegen",
     "format": "prettier --write \"**/*.{ts,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,json,md}\"",
     "e2e:public": "playwright test --project=chromium-public",
