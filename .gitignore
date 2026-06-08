@@ -15,3 +15,8 @@ playwright/.auth
 
 # Agent CLI tools
 .claude/
+
+
+# Playwright
+playwright-report/
+test-results/
