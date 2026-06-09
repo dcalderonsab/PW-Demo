@@ -29,11 +29,11 @@ export class ProductManagerPage extends BasePage {
     super(page);
 
     // Form input locators (web-first accessibility based)
-    this.productNameInput = page.getByRole('textbox', { name: 'Name *' });
+    this.productNameInput = page.locator('[id=product-name]');
     this.productSkuInput = page.locator('[id=product-sku]');
-    this.productPriceInput = page.getByRole('spinbutton', { name: 'Price *' });
-    this.productCategorySelect = page.getByRole('combobox', { name: 'Category *' });
-    this.productDescriptionInput = page.getByRole('textbox', { name: 'Description' });
+    this.productPriceInput = page.locator('[id=product-price]');
+    this.productCategorySelect = page.locator('[id=product-category]');
+    this.productDescriptionInput = page.locator('[id=product-description]');
     this.saveProductButton = page.getByRole('button', { name: 'Save' });
 
     // Additional action locators
@@ -113,5 +113,9 @@ getProductCard(productName: string): Locator {
     
 
     return this.successAlert.filter({ hasText: expectedMessage });
+  }
+
+  async filterByCategory(category: string) {
+    await this.categoryFilter.selectOption(category);
   }
 }

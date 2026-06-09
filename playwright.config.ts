@@ -53,7 +53,6 @@ export default defineConfig({
       name: 'chromium-secure',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: path.join(__dirname, 'playwright/.auth/user.json'),
       },
       testMatch: 'tests/e2e/secure/*.spec.ts',
     },

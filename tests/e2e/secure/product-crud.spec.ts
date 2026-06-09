@@ -13,26 +13,32 @@ test.beforeEach(async ({ page, loginPage }) => {
   );
 
   await page.goto(APP_ROUTES.INDEX_PAGE);
-// Espera a que la app inicialice con el localStorage
+
   await page.waitForLoadState('networkidle');
 });
 
 test('Should create a new product successfully', async ({ page, productManagerPage }) => {
+  
 
-  // Arrange: Data ficticia con SKU dinámico
+
   const newProduct = helper.generateRandomProductData();
 
-  // Act: Crear producto usando tu POM
+
   await productManagerPage.createProduct(newProduct);
 
-  // Assert: Validar que el producto aparezca como un Heading Nivel 3
+
   await expect(page.getByRole('heading', { name: newProduct.name, level: 3 })).toBeVisible();
 
+ await test.step('Filter and search product', async () => {
+
+  await productManagerPage.filterByCategory(newProduct.category);
 
   const ProductCard = productManagerPage.getProductNameElement(newProduct.name);
   await expect(ProductCard).toBeVisible();
   await expect(ProductCard).toHaveText(newProduct.name);
+ });
 
+ await test.step('Delete the created product', async () => {
   await productManagerPage.selectProductCheckbox(newProduct.name);
   await productManagerPage.clickDeleteButton(newProduct.name);
 
@@ -42,6 +48,6 @@ test('Should create a new product successfully', async ({ page, productManagerPa
   await expect(deletionSuccessToast).toBeVisible();
 
   await expect(page.getByRole('heading', { name: newProduct.name, level: 3 })).not.toBeVisible();
-
+ });
 
 });
