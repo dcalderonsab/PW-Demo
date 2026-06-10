@@ -3,7 +3,6 @@ import { BasePage } from './BasePage';
 import type { IProductData } from '../types/product.type';
 import { UI_SELECTORS } from '../constants/selectors.constants.js';
 
-
 export class ProductManagerPage extends BasePage {
   // Form input locators (web-first accessibility)
   readonly productNameInput: Locator;
@@ -24,7 +23,6 @@ export class ProductManagerPage extends BasePage {
   readonly deleteButtonConfirmation: Locator;
   readonly deleteSuccessAlert: Locator;
 
-
   constructor(page: Page) {
     super(page);
 
@@ -43,12 +41,11 @@ export class ProductManagerPage extends BasePage {
     this.selectAll = page.locator('[id=select-all]');
     this.bulkDeleteButton = page.locator('[id=bulk-delete-btn]');
 
-    this.successAlert =  page.locator('#toast-container');
+    this.successAlert = page.locator('#toast-container');
     this.productList = page.locator('[id=product-list]');
     this.deleteButtonConfirmation = page.locator('[id=modal-confirm-btn]');
 
-    this.deleteSuccessAlert = page.getByText('Success Product')
-    
+    this.deleteSuccessAlert = page.getByText('Success Product');
   }
 
   /**
@@ -69,33 +66,29 @@ export class ProductManagerPage extends BasePage {
   }
 
   // En tu ProductManagerPage.ts
-getProductCard(productName: string): Locator {
+  getProductCard(productName: string): Locator {
     // 2. Consumes la variable, eliminando el hardcode del método
     return this.productList.locator(UI_SELECTORS.PRODUCT_CARD, { hasText: productName });
-
-    
   }
 
   getProductNameElement(productName: string) {
     const card = this.getProductCard(productName);
-    
 
-    return card.getByRole('heading', { 
-      name: productName, 
-      level: UI_SELECTORS.PRODUCT_TITLE_LEVEL 
+    return card.getByRole('heading', {
+      name: productName,
+      level: UI_SELECTORS.PRODUCT_TITLE_LEVEL,
     });
   }
-
 
   async selectProductCheckbox(productName: string) {
     // Busca el checkbox por su rol y su etiqueta accesible dinámica
     const checkbox = this.page.getByRole(UI_SELECTORS.CHECKBOX, { name: `Select ${productName}` });
-    
+
     // Usamos check() en lugar de click() para checkboxes
     await checkbox.check();
   }
 
-// En tu ProductManagerPage.ts
+  // En tu ProductManagerPage.ts
   async clickDeleteButton(productName: string) {
     // Busca un botón cuyo nombre accesible empiece con "Delete " seguido del producto
 
@@ -107,10 +100,11 @@ getProductCard(productName: string): Locator {
     await this.clickElement(this.deleteButtonConfirmation);
   }
 
-  getSpecificSuccessToast(productName: string, action: 'created' | 'deleted' | 'updated' = 'created'): Locator {
-   
+  getSpecificSuccessToast(
+    productName: string,
+    action: 'created' | 'deleted' | 'updated' = 'created',
+  ): Locator {
     const expectedMessage = `Success Product "${productName}" ${action} successfully`;
-    
 
     return this.successAlert.filter({ hasText: expectedMessage });
   }

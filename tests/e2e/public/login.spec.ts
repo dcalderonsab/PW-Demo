@@ -15,7 +15,6 @@ test.describe('Login Functionality', () => {
     registerPage,
     page,
   }) => {
-
     await loginPage.goto();
 
     await loginPage.clickRegisterLink();
@@ -33,6 +32,18 @@ test.describe('Login Functionality', () => {
     await expect(page).toHaveURL(APP_ROUTES.LOGIN_REGEX);
 
     await expect(loginPage.header).toBeVisible();
+
+
+     await loginPage.login(
+      newUser.userName,
+      newUser.password,
+    );
+
+
+    await expect(loginPage.loginSuccessfull).toBeVisible();
+
+    await expect(page).toHaveURL(APP_ROUTES.INDEX_PAGE);
+
   });
 
   test('Validate login process with wrong credentials', async ({ loginPage, page }) => {
