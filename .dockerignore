@@ -1,0 +1,22 @@
+# Dependencias locales (contienen binarios del OS anfitrión)
+node_modules/
+.pnpm-store/
+
+# Reportes y resultados locales
+playwright-report/
+test-results/
+
+# Control de versiones y herramientas de IA
+.git/
+.github/
+.vscode/
+.claude/
+.playwright-cli/
+
+# Variables de entorno
+.env
+.env.*
+
+# Logs
+*-debug.log
+.npm/
